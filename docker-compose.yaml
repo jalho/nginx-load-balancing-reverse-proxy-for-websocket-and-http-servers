@@ -1,0 +1,28 @@
+services:
+  websocket-server-a:
+    image: websocket-server:test
+    container_name: websocket-server-a
+    hostname: websocket-server-a
+  websocket-server-b:
+    image: websocket-server:test
+    container_name: websocket-server-b
+    hostname: websocket-server-b
+  http-server-g:
+    image: http-server:test
+    container_name: http-server-g
+    hostname: http-server-g
+  websocket-client:
+    image: websocket-client:test
+    container_name: websocket-client
+    hostname: websocket-client
+    depends_on:
+      proxy:
+        condition: service_started
+  proxy:
+    image: nginx:1.23-bullseye
+    container_name: proxy
+    hostname: proxy
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - 8080:80
