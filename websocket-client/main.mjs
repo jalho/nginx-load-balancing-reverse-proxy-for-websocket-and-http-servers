@@ -7,9 +7,12 @@ process.on("exit", (code) => {
 function sendToWsServer(url) {
     const ws = new WebSocket(url);
     ws.on("error", console.error);
-    ws.on("open", function open() {
+    ws.on("open", () => {
         console.log("[%s] Sending message to %s", new Date(), url);
         ws.send("Hello from client!");
+    });
+    ws.on("message", (data) => {
+        console.log(data.toString());
     });
 }
 
