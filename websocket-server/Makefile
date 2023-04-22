@@ -1,5 +1,2 @@
-image: node_modules
+image:
 	docker build --tag websocket-server:test .
-
-node_modules:
-	npm ci
